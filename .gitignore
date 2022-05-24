@@ -469,5 +469,5 @@ TSWLatexianTemp*
 **/papers/
 *.npy
 *.pickle
-stanford-cs224n/assignments/a2/word_vectors.png
+stanford-cs231n/slides/
 *.pkl
