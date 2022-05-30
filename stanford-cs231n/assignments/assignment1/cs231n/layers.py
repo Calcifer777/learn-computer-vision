@@ -27,7 +27,7 @@ def affine_forward(x, w, b):
     # will need to reshape the input into rows.                               #
     ###########################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-    x_flat = x.reshape(x.shape[0], np.product(x.shape[1:]))  # [N, D]
+    x_flat = x.reshape((x.shape[0], np.product(x.shape[1:])))  # [N, D]
     out = np.matmul(x_flat, w) + b   # [N, M]
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
