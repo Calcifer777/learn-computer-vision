@@ -1,2 +1,4 @@
 # Architectures
 
+## Stochastic depth
+

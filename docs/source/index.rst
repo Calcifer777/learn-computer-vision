@@ -10,7 +10,12 @@ Learning resources for NLP
   :maxdepth: 1
   :caption: Contents:
 
+  preprocessing.md
+  layers.md
   architectures.md
+  applications.md
+  inspection.md
+  advanced-topics.md
 
 
 Indices and tables
