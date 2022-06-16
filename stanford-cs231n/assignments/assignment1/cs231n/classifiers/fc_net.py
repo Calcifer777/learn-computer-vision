@@ -92,10 +92,10 @@ class TwoLayerNet(object):
         ############################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        out_h1,cache_h1=affine_forward(X,self.params['W1'],self.params['b1'])
-        out_relu,chache_relu=relu_forward(out_h1)
-        out_h2,cache_h2=affine_forward(out_relu,self.params['W2'],self.params['b2'])
-        scores=out_h2
+        out_h1, cache_h1 = affine_forward(X,self.params['W1'],self.params['b1'])
+        out_relu, chache_relu = relu_forward(out_h1)
+        out_h2, cache_h2 = affine_forward(out_relu,self.params['W2'],self.params['b2'])
+        scores = out_h2
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ############################################################################
