@@ -116,7 +116,7 @@ A Region Proposal Network (RPN) takes an image (of any size) as input and output
 
 To generate region proposals, we slide a small network over the convolutional feature map output by the last shared convolutional layer. This small network takes as input an $n \times n$ spatial window of the input convolutional feature map. Each sliding window is mapped to a lower-dimensional feature. This feature is fed into two sibling fully-connected layers—a box-regression layer (reg) and a box-classification layer (cls).
 
-This architecture is naturally implemented with an n × n convolutional layer followed by two sibling $1 \cross 1$ convolutional layers (for *reg* and *cls*, respectively).
+This architecture is naturally implemented with an n × n convolutional layer followed by two sibling $1 \times 1$ convolutional layers (for *reg* and *cls*, respectively).
 
 #### Anchors
 
