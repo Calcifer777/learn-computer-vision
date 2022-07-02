@@ -11,6 +11,12 @@ Commonly used parameters:
 - Activation: ReLU
 - Initialization: Xavier/He + Kaiming; that is, scale the weights matrix by $\frac{2}{\sqrt{input_dims}}$, where $input_dims = {filter_size}^2*num_input_channels$
 
+### Compute details
+
+Output size: $(input_size - filter_size) / stride + 1$
+
+Parameters: $W_{filter} * H_{filter} * input_channels * output_channels $
+
 ## Dropout
 
 In each forard pass, randomly set some neurons to zero with probability $q=1-p$.
@@ -69,4 +75,10 @@ Normalizes all the features in a group of $G$ channels for each training sample.
 
 ## Max pooling
 
-### Fractional max pooling
+## Upsampling layers (unpooling)
+
+Types:
+- nearest neighbors
+- bed of nails
+- max unpooling: can be done by pairing corresponding pairs of downsampling and upsampling layers. When doing max pooling, remember which element was max; during unpooling, fill value at the position in the max pooling layer
+- Transpose convolution
