@@ -1,0 +1,551 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Architectures &mdash; Computer Vision Notes 0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Applications" href="applications.html" />
+    <link rel="prev" title="Layers" href="layers.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Computer Vision Notes
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="preprocessing.html">Preprocessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layers.html">Layers</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Architectures</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#alexnet-2012">AlexNet (2012)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#layers">Layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#details">Details</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#vgg-2014">VGG (2014)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#googlenet-2014">GoogleNet (2014)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#inception-module">Inception module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#residual-networks">Residual Networks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hyperparameters">Hyperparameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#residual-connections">Residual connections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#stochastic-depth">Stochastic depth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fully-convolutional-networks">Fully convolutional networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#r-cnn">R-CNN</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#components">Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#issues">Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fast-r-cnn">Fast R-CNN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#faster-r-cnn">Faster R-CNN</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#rpns">RPNs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#anchors">Anchors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rpn-loss-function">RPN Loss function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#handling-multiple-roi-sizes">Handling multiple ROI sizes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#training">Training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#predictions">Predictions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#resources">Resources</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mask-r-cnn">Mask R-CNN</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#yolo">Yolo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#sequence-modeling">Sequence modeling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#recurrent-neural-networks">Recurrent Neural Networks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#applications">Applications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#generative-models">Generative models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pixel-rnn">Pixel RNN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pixel-cnn">Pixel CNN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vae">VAE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gan">GAN</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="applications.html">Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inspection.html">Inspecting deep learning models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced-topics.html">Advanced topics</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Computer Vision Notes</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Architectures</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/architectures.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="tex2jax_ignore mathjax_ignore section" id="architectures">
+<h1>Architectures<a class="headerlink" href="#architectures" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="alexnet-2012">
+<h2>AlexNet (2012)<a class="headerlink" href="#alexnet-2012" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="layers">
+<h3>Layers<a class="headerlink" href="#layers" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Repeat(8)</p>
+<ul>
+<li><p>Conv</p></li>
+<li><p>Max Pooling</p></li>
+<li><p>Batch Norm</p></li>
+</ul>
+</li>
+<li><p>Repeat(3)</p>
+<ul>
+<li><p>FC</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="details">
+<h3>Details<a class="headerlink" href="#details" title="Permalink to this headline">¶</a></h3>
+<p>Distributed training</p>
+</div>
+</div>
+<div class="section" id="vgg-2014">
+<h2>VGG (2014)<a class="headerlink" href="#vgg-2014" title="Permalink to this headline">¶</a></h2>
+<p>Small filters, deeper networks</p>
+<ul class="simple">
+<li><p>Repeat(19)</p>
+<ul>
+<li><p>Conv(size=3, stride=1)</p></li>
+<li><p>Max Pooling</p></li>
+<li><p>Batch Norm</p></li>
+</ul>
+</li>
+<li><p>Repeat(3)</p>
+<ul>
+<li><p>FC</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="googlenet-2014">
+<h2>GoogleNet (2014)<a class="headerlink" href="#googlenet-2014" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Deeper network, computationally efficient</p></li>
+<li><p>22 layers</p></li>
+<li><p>Efficient ‘Inception’ module</p></li>
+<li><p>No FC layers</p></li>
+<li><p>Less parameters than AlexNet</p></li>
+</ul>
+<div class="section" id="inception-module">
+<h3>Inception module<a class="headerlink" href="#inception-module" title="Permalink to this headline">¶</a></h3>
+<p>The layers inputs are processed by a set of convolutional operations, each with different parameters (conv: filter size, number of channels, max pool: stride).</p>
+<p>To prevent the explosion of the number of parameters and of the number of ops in each layer, 1x1 convolutional bottlenecks process the input to project it into a lower dimensional space.</p>
+</div>
+</div>
+<div class="section" id="residual-networks">
+<h2>Residual Networks<a class="headerlink" href="#residual-networks" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>Layers<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>152-layer model</p></li>
+<li><p>add residual connections in the CONV layers</p></li>
+<li><p>BN after every CONV layer</p></li>
+</ul>
+</div>
+<div class="section" id="hyperparameters">
+<h3>Hyperparameters<a class="headerlink" href="#hyperparameters" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Batch size: 256</p></li>
+<li><p>Initialization: Xavier/2</p></li>
+<li><p>Optimizer: SGD + momentum</p></li>
+<li><p>Learning rate: divided by 10 when validation error plateaus</p></li>
+<li><p>Weigth decay</p></li>
+<li><p>No dropout used</p></li>
+</ul>
+</div>
+<div class="section" id="residual-connections">
+<h3>Residual connections<a class="headerlink" href="#residual-connections" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>DenseNet</p></li>
+<li><p>FractalNet</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="stochastic-depth">
+<h2>Stochastic depth<a class="headerlink" href="#stochastic-depth" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="fully-convolutional-networks">
+<h2>Fully convolutional networks<a class="headerlink" href="#fully-convolutional-networks" title="Permalink to this headline">¶</a></h2>
+<p>Architecture features:</p>
+<ul class="simple">
+<li><p>Can take arbitrary size as inputs</p></li>
+<li><p>Up sampling / transposed convilution</p></li>
+<li><p>skip connections</p></li>
+</ul>
+<p>Use cases:</p>
+<ul class="simple">
+<li><p>pixel-wise semantic segmentation</p></li>
+</ul>
+</div>
+<div class="section" id="r-cnn">
+<h2>R-CNN<a class="headerlink" href="#r-cnn" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="components">
+<h3>Components<a class="headerlink" href="#components" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Region of Interest (ROI) proposal</p>
+<ul>
+<li><p>2000 regions</p></li>
+<li><p>selective search algorithm</p></li>
+<li><p>rescaling to a fixed size</p></li>
+</ul>
+</li>
+<li><p>Process each ROI proposal through a (possibly pretrained) CNN</p></li>
+<li><p>Targets</p>
+<ol class="simple">
+<li><p>bounding box region prediction</p>
+<ul>
+<li><p>adjusts the bounding box of the input ROI to match the region of the detected object</p></li>
+<li><p>a 4d vector (<span class="math notranslate nohighlight">\(x_min\)</span> <span class="math notranslate nohighlight">\(x_max\)</span>, <span class="math notranslate nohighlight">\(y_min\)</span>, <span class="math notranslate nohighlight">\(y_max\)</span>)</p></li>
+</ul>
+</li>
+<li><p>class score prediction: SVM loss on the object classes</p></li>
+</ol>
+</li>
+<li><p>Loss: a weighted sum of the losses from the two targets</p></li>
+</ul>
+</div>
+<div class="section" id="issues">
+<h3>Issues<a class="headerlink" href="#issues" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Proposal extraction is slow and takes a lot of disk space</p></li>
+<li><p>All the proposals have to be resized and passed through the network, which also adds an overhead</p></li>
+<li><p>Considering that the algorithm is executed on cpu, the inference time becomes slow.</p></li>
+</ul>
+</div>
+<div class="section" id="fast-r-cnn">
+<h3>Fast R-CNN<a class="headerlink" href="#fast-r-cnn" title="Permalink to this headline">¶</a></h3>
+<p>Change w.r.t. plain R-CNN</p>
+<ul class="simple">
+<li><p>the ROI are computed on a intermediate feature map.</p></li>
+</ul>
+<p>Issues</p>
+<ul class="simple">
+<li><p>ROI proposal calculations are a bottleneck during prediction</p></li>
+</ul>
+</div>
+<div class="section" id="faster-r-cnn">
+<h3>Faster R-CNN<a class="headerlink" href="#faster-r-cnn" title="Permalink to this headline">¶</a></h3>
+<p>Computing proposals with a deep convolutional neural network leads to an elegant and effective solution where proposal computation is nearly cost-free given the detection network’s computation. To this end, we introduce novel Region Proposal Networks (RPNs) that share convolutional layers with state-of-the-art object detection networks. By sharing convolutions at test-time, the marginal cost for computing proposals is small (e.g., 10ms per image).</p>
+<p>The key observation is that the convolutional feature maps used by region-based detectors, like Fast R- CNN, can also be used for generating region proposals. An RPN can be placed on top of these convolutional features by adding a few additional convolutional layers, so that it simultaneously regress region bounds and objectness scores at each location on a regular grid.</p>
+<p>To unify RPNs with Fast R-CNN object detection networks, we propose a training scheme that alternates between fine-tuning for the region proposal task and then fine-tuning for object detection, while keeping the proposals fixed.</p>
+<div class="section" id="rpns">
+<h4>RPNs<a class="headerlink" href="#rpns" title="Permalink to this headline">¶</a></h4>
+<p>A Region Proposal Network (RPN) takes an image (of any size) as input and outputs a set of rectangular object proposals, each with an objectness score. We model this process with a fully convolutional network. Because our ultimate goal is to share computation with a Fast R-CNN object detection network, we assume that both nets share a common set of convolutional layers.</p>
+<p>To generate region proposals, we slide a small network over the convolutional feature map output by the last shared convolutional layer. This small network takes as input an <span class="math notranslate nohighlight">\(n \times n\)</span> spatial window of the input convolutional feature map. Each sliding window is mapped to a lower-dimensional feature. This feature is fed into two sibling fully-connected layers—a box-regression layer (reg) and a box-classification layer (cls).</p>
+<p>This architecture is naturally implemented with an n × n convolutional layer followed by two sibling <span class="math notranslate nohighlight">\(1 \times 1\)</span> convolutional layers (for <em>reg</em> and <em>cls</em>, respectively).</p>
+</div>
+<div class="section" id="anchors">
+<h4>Anchors<a class="headerlink" href="#anchors" title="Permalink to this headline">¶</a></h4>
+<p>At each sliding-window location, we simultaneously predict multiple region proposals, where the number of maximum possible proposals for each location is denoted as <span class="math notranslate nohighlight">\(k\)</span>.</p>
+<p>By default we use 3 scales and 3 aspect ratios, yielding k = 9 anchors at each sliding position.</p>
+<p>An important property of our approach is that it is <em>translation invariant</em>. This property also reduces the model size and it has less risk of overfitting on small datasets.</p>
+</div>
+<div class="section" id="rpn-loss-function">
+<h4>RPN Loss function<a class="headerlink" href="#rpn-loss-function" title="Permalink to this headline">¶</a></h4>
+<p>For training RPNs, we assign a binary class label (of being an object or not) to each anchor. We assign a positive label to two kinds of anchors:</p>
+<ul class="simple">
+<li><p>the anchor/anchors with the highest IoU overlap with a ground-truth box</p></li>
+<li><p>an anchor that has an IoU overlap higher than 0.7 with any ground-truth box</p></li>
+</ul>
+<p>The loss function is a weighted sum of the regression loss and the classifier loss</p>
+</div>
+<div class="section" id="handling-multiple-roi-sizes">
+<h4>Handling multiple ROI sizes<a class="headerlink" href="#handling-multiple-roi-sizes" title="Permalink to this headline">¶</a></h4>
+<p>The features used for regression are of the same spatial size (3 × 3) on the feature maps. To account for varying sizes, a set of k bounding-box regressors are learned. Each regressor is responsible for one scale and one aspect ratio, and the k regressors do not share weights. As such, it is still possible to predict boxes of various sizes even though the features are of a fixed size/scale, thanks to the design of anchors.</p>
+</div>
+<div class="section" id="training">
+<h4>Training<a class="headerlink" href="#training" title="Permalink to this headline">¶</a></h4>
+<p><strong>‘Image centric’ sampling strategy</strong></p>
+<p>Each mini-batch arises from a single image that contains many positive and negative example anchors.</p>
+<p>Randomly sample 256 anchors in an image to compute the loss function of a mini-batch, where the sampled positive and negative anchors have a ratio of up to 1:1.</p>
+</div>
+<div class="section" id="predictions">
+<h4>Predictions<a class="headerlink" href="#predictions" title="Permalink to this headline">¶</a></h4>
+<p>The algorithm allows predictions that are larger than the underlying receptive field.  Such predictions are not impossible—one may still roughly infer the extent of an object if only the middle of the object is visible.</p>
+<p>Some RPN proposals highly overlap with each other. To reduce redundancy, we adopt non-maximum suppression (NMS) on the proposal regions based on their cls scores.</p>
+</div>
+<div class="section" id="resources">
+<h4>Resources<a class="headerlink" href="#resources" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>Code: https://github.com/rbgirshick/py-faster-rcnn</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="mask-r-cnn">
+<h3>Mask R-CNN<a class="headerlink" href="#mask-r-cnn" title="Permalink to this headline">¶</a></h3>
+<p>TODO</p>
+</div>
+</div>
+<div class="section" id="yolo">
+<h2>Yolo<a class="headerlink" href="#yolo" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>Resources<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=ag3DLKsl2vk">YOLO - intro</a></p></li>
+<li><p><a class="reference external" href="https://pjreddie.com/darknet/yolo/">YOLO - author home page</a></p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=bDK9NRF20To">YOLO v4 - paper</a></p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=Xgrg8_936pk">YOLO v3, v4, v5</a></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="sequence-modeling">
+<h2>Sequence modeling<a class="headerlink" href="#sequence-modeling" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="recurrent-neural-networks">
+<h3>Recurrent Neural Networks<a class="headerlink" href="#recurrent-neural-networks" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="applications">
+<h3>Applications<a class="headerlink" href="#applications" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Image captioning</p></li>
+<li><p>Visual QA</p></li>
+<li><p>Visual dialog</p></li>
+<li><p>Visual language navigation</p></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h3>Resources<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://colah.github.io/posts/2015-08-Understanding-LSTMs/">Understanding LSTM networks</a></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="generative-models">
+<h2>Generative models<a class="headerlink" href="#generative-models" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="pixel-rnn">
+<h3>Pixel RNN<a class="headerlink" href="#pixel-rnn" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="pixel-cnn">
+<h3>Pixel CNN<a class="headerlink" href="#pixel-cnn" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="vae">
+<h3>VAE<a class="headerlink" href="#vae" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="gan">
+<h3>GAN<a class="headerlink" href="#gan" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="applications.html" class="btn btn-neutral float-right" title="Applications" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="layers.html" class="btn btn-neutral float-left" title="Layers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Marco Filippone.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

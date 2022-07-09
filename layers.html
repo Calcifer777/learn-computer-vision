@@ -1,0 +1,349 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Layers &mdash; Computer Vision Notes 0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Architectures" href="architectures.html" />
+    <link rel="prev" title="Preprocessing" href="preprocessing.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Computer Vision Notes
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="preprocessing.html">Preprocessing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Layers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#convolutional-layer">Convolutional layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#compute-details">Compute details</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#dropout">Dropout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dropconnect">DropConnect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#normalization-layers">Normalization layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#batch-normalization">Batch normalization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#training">Training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test">Test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#batch-normalization-for-convolutional-layers">Batch normalization for Convolutional layers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#drawbacks">Drawbacks</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#layer-normalization">Layer normalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instance-normalization">Instance normalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#group-normalization">Group normalization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#max-pooling">Max pooling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#upsampling-layers-unpooling">Upsampling layers (unpooling)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architectures.html">Architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applications.html">Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inspection.html">Inspecting deep learning models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced-topics.html">Advanced topics</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Computer Vision Notes</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Layers</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/layers.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="tex2jax_ignore mathjax_ignore section" id="layers">
+<h1>Layers<a class="headerlink" href="#layers" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="convolutional-layer">
+<h2>Convolutional layer<a class="headerlink" href="#convolutional-layer" title="Permalink to this headline">¶</a></h2>
+<p>Parameters:</p>
+<ul class="simple">
+<li><p>number of output channels</p></li>
+<li><p>filter shape</p></li>
+<li><p>stride</p></li>
+</ul>
+<p>Commonly used parameters:</p>
+<ul class="simple">
+<li><p>Activation: ReLU</p></li>
+<li><p>Initialization: Xavier/He + Kaiming; that is, scale the weights matrix by <span class="math notranslate nohighlight">\(\frac{2}{\sqrt{input_dims}}\)</span>, where <span class="math notranslate nohighlight">\(input_dims = {filter_size}^2*num_input_channels\)</span></p></li>
+</ul>
+<div class="section" id="compute-details">
+<h3>Compute details<a class="headerlink" href="#compute-details" title="Permalink to this headline">¶</a></h3>
+<p>Output size: <span class="math notranslate nohighlight">\((input_size - filter_size) / stride + 1\)</span></p>
+<p>Parameters: <span class="math notranslate nohighlight">\(W_{filter} * H_{filter} * input_channels * output_channels \)</span></p>
+</div>
+</div>
+<div class="section" id="dropout">
+<h2>Dropout<a class="headerlink" href="#dropout" title="Permalink to this headline">¶</a></h2>
+<p>In each forard pass, randomly set some neurons to zero with probability <span class="math notranslate nohighlight">\(q=1-p\)</span>.</p>
+<p>The activations should be rescaled consequently by a factor of <span class="math notranslate nohighlight">\(p\)</span>.</p>
+</div>
+<div class="section" id="dropconnect">
+<h2>DropConnect<a class="headerlink" href="#dropconnect" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="normalization-layers">
+<h2>Normalization layers<a class="headerlink" href="#normalization-layers" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="batch-normalization">
+<h3>Batch normalization<a class="headerlink" href="#batch-normalization" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="training">
+<h4>Training<a class="headerlink" href="#training" title="Permalink to this headline">¶</a></h4>
+<p>For each batch, normalize the activations (that is, the values before the non-linearity) on a per-feature basis. That is, for each feature, compute the mean and sample variance of the mini-batch, and standardize the values.</p>
+<p><span class="math notranslate nohighlight">\(x^{'} = \frac{x - \hat{x}}{\sqrt{var(x) + \epsilon}}\)</span></p>
+<p>Include an additional linear layer - with learned parameters <span class="math notranslate nohighlight">\(\gamma\)</span>, <span class="math notranslate nohighlight">\(\beta\)</span>- at the end of batch normalization to allow the possibility to restore the values as they were before normalization.</p>
+<p><span class="math notranslate nohighlight">\(y = \gamma x^{'} + \beta\)</span></p>
+</div>
+<div class="section" id="test">
+<h4>Test<a class="headerlink" href="#test" title="Permalink to this headline">¶</a></h4>
+<p>Use the running mean and variance averages as registered during the training phase to perform standardization.</p>
+</div>
+<div class="section" id="batch-normalization-for-convolutional-layers">
+<h4>Batch normalization for Convolutional layers<a class="headerlink" href="#batch-normalization-for-convolutional-layers" title="Permalink to this headline">¶</a></h4>
+<p>The goal is to normalize all the values in a feature map in the same way. To achieve this, the normalization is applied to each feature map / channel (as opposed to being applied to each feature).</p>
+<p>So, for a batch of size  <span class="math notranslate nohighlight">\(b\)</span> and a set <span class="math notranslate nohighlight">\(s\)</span> of feature maps of size <span class="math notranslate nohighlight">\(h \times w\)</span>, we apply the BN <span class="math notranslate nohighlight">\(s\)</span> times, with each of them processing <span class="math notranslate nohighlight">\(b \cdot h \cdot w\)</span> elements</p>
+</div>
+<div class="section" id="drawbacks">
+<h4>Drawbacks<a class="headerlink" href="#drawbacks" title="Permalink to this headline">¶</a></h4>
+<p>For applications where the batch size is small, the variability in the sample statistics computed for each batch has a negative effect on the overall model performace. Group normalization can solve this issue.</p>
+</div>
+</div>
+<div class="section" id="layer-normalization">
+<h3>Layer normalization<a class="headerlink" href="#layer-normalization" title="Permalink to this headline">¶</a></h3>
+<p>Normalizes all the features of all the channels for each training sample.</p>
+<p>The number of elements included in each normalization step is <span class="math notranslate nohighlight">\(num_channels \cdot channel_height \cdot channel_width\)</span>.</p>
+<p>There are <span class="math notranslate nohighlight">\(b\)</span> normalization operations for each batch.</p>
+</div>
+<div class="section" id="instance-normalization">
+<h3>Instance normalization<a class="headerlink" href="#instance-normalization" title="Permalink to this headline">¶</a></h3>
+<p>Normalizes all the features in a single channel for each training sample.</p>
+<p>The number of elements included in each normalization step is <span class="math notranslate nohighlight">\(channel_height \cdot channel_width\)</span>.</p>
+<p>There are <span class="math notranslate nohighlight">\(num_channels \cdot b\)</span> normalization operations for each batch.</p>
+</div>
+<div class="section" id="group-normalization">
+<h3>Group normalization<a class="headerlink" href="#group-normalization" title="Permalink to this headline">¶</a></h3>
+<p>Normalizes all the features in a group of <span class="math notranslate nohighlight">\(G\)</span> channels for each training sample. The number of groups (or channels per group) is an hyperparameter of the model.</p>
+</div>
+</div>
+<div class="section" id="max-pooling">
+<h2>Max pooling<a class="headerlink" href="#max-pooling" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="upsampling-layers-unpooling">
+<h2>Upsampling layers (unpooling)<a class="headerlink" href="#upsampling-layers-unpooling" title="Permalink to this headline">¶</a></h2>
+<p>Types:</p>
+<ul class="simple">
+<li><p>nearest neighbors</p></li>
+<li><p>bed of nails</p></li>
+<li><p>max unpooling: can be done by pairing corresponding pairs of downsampling and upsampling layers. When doing max pooling, remember which element was max; during unpooling, fill value at the position in the max pooling layer</p></li>
+<li><p>Transpose convolution</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="architectures.html" class="btn btn-neutral float-right" title="Architectures" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="preprocessing.html" class="btn btn-neutral float-left" title="Preprocessing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Marco Filippone.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
