@@ -472,3 +472,7 @@ TSWLatexianTemp*
 stanford-cs231n/slides/
 *.pkl
 stanford-cs231n/assignments/assignment*/cs231n/datasets/cifar-10-batches-py/
+
+
+**/logs*
+**/models*

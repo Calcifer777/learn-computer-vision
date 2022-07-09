@@ -40,7 +40,7 @@ The layers inputs are processed by a set of convolutional operations, each with 
 
 To prevent the explosion of the number of parameters and of the number of ops in each layer, 1x1 convolutional bottlenecks process the input to project it into a lower dimensional space.
 
-## ResNet
+## Residual Networks
 
 ### Layers
 
@@ -58,6 +58,11 @@ To prevent the explosion of the number of parameters and of the number of ops in
 - No dropout used
 
 ### Residual connections
+
+### Examples
+
+- DenseNet
+- FractalNet
 
 ## Stochastic depth
 
@@ -158,6 +163,38 @@ Some RPN proposals highly overlap with each other. To reduce redundancy, we adop
 
 ### Mask R-CNN
 
+TODO
+
 ## Yolo
 
+### Resources
 
+- [YOLO - intro](https://www.youtube.com/watch?v=ag3DLKsl2vk)
+- [YOLO - author home page](https://pjreddie.com/darknet/yolo/)
+- [YOLO v4 - paper](https://www.youtube.com/watch?v=bDK9NRF20To)
+- [YOLO v3, v4, v5](https://www.youtube.com/watch?v=Xgrg8_936pk)
+
+## Sequence modeling
+
+### Recurrent Neural Networks
+
+### Applications
+
+- Image captioning
+- Visual QA
+- Visual dialog
+- Visual language navigation
+
+### Resources
+
+- [Understanding LSTM networks](https://colah.github.io/posts/2015-08-Understanding-LSTMs/)
+
+## Generative models
+
+### Pixel RNN
+
+### Pixel CNN
+
+### VAE
+
+### GAN
